@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inbox Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .email-card {
+      border-left: 6px solid;
+      padding: 16px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .High { border-color: #e74c3c; }
+    .Medium { border-color: #f39c12; }
+    .Low { border-color: #2ecc71; }
+
+    .email-subject {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #222;
+    }
+
+    .email-from {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .summary {
+      font-size: 15px;
+      color: #333;
+    }
+
+    .priority {
+      font-size: 14px;
+      font-style: italic;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    .filter-form input[type="text"] {
+      padding: 6px;
+      margin-right: 8px;
+      width: 200px;
+    }
+
+    .filter-form button {
+      padding: 6px 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Inbox Summary</h1>
+
+  <form class="filter-form" method="POST" style="margin-bottom: 20px;">
+    <input type="hidden" name="email" value="{{ email }}">
+    <input type="hidden" name="password" value="{{ password }}">
+    <input type="hidden" name="count" value="{{ count }}">
+    <input type="hidden" name="unread_only" value="{{ 'on' if unread_only else '' }}">
+    <input type="text" name="sender_filter" placeholder="Filter by sender..." value="{{ sender_filter or '' }}">
+    <button type="submit">Filter</button>
+  </form>
+
+  {% if emails %}
+    {% for email in emails %}
+      <div class="email-card {{ email.priority }}">
+        <div class="email-subject">{{ email.subject }}</div>
+        <div class="email-from"><strong>From:</strong> {{ email.from }}</div>
+        <div class="summary">{{ email.summary }}</div>
+        <div class="priority">Priority: {{ email.priority }}</div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No emails to display.</p>
+  {% endif %}
+</body>
+</html>

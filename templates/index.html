@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Summarizer Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .readme-box {
+      background-color: #fff8dc;
+      border: 1px solid #e0d8a7;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 30px;
+    }
+
+    .readme-box h3 {
+      margin-top: 0;
+    }
+
+    .readme-box ul {
+      padding-left: 20px;
+    }
+
+    .readme-box a {
+      color: #1a0dab;
+      text-decoration: underline;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      max-width: 500px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login to View Summarized Emails</h1>
+
+  <div class="readme-box">
+    <h3>📌 How to Log In Securely</h3>
+    <p>This app uses your email’s <strong>app-specific password</strong> (not your normal password) for secure access. Here's how to get it:</p>
+    <ul>
+      <li><strong>Gmail:</strong> <a href="https://myaccount.google.com/apppasswords" target="_blank">Generate an app password</a> (requires 2-Step Verification)</li>
+      <li><strong>Yahoo:</strong> <a href="https://login.yahoo.com/account/security" target="_blank">Generate an app password</a></li>
+      <li><strong>Outlook/Hotmail:</strong> <a href="https://account.live.com/proofs/Manage/additional" target="_blank">Create an app password</a></li>
+      <li><strong>iCloud:</strong> <a href="https://support.apple.com/en-us/HT204397" target="_blank">Get an app-specific password</a></li>
+    </ul>
+    <p><strong>⚠️ Note:</strong> Entering your regular password will result in a login failure.</p>
+  </div>
+
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data">
+    <label>Email:</label>
+    <input type="email" name="email" placeholder="you@example.com">
+
+    <label>App Password:</label>
+    <input type="password" name="password" placeholder="App-specific password">
+
+    <label>Number of emails to fetch:</label>
+    <select name="count">
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+    </select>
+
+    <label>
+      <input type="checkbox" name="unread_only"> Unread emails only
+    </label><br><br>
+
+    <hr><br>
+    <label>📷 Or upload a screenshot of an email to summarize:</label>
+    <input type="file" name="image" accept="image/*"><br><br>
+
+    <button type="submit">Summarize Inbox or Image</button>
+  </form>
+</body>
+</html>
